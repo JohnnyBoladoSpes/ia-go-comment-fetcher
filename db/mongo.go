@@ -3,7 +3,6 @@ package db
 import (
 	"context"
 	"log"
-	"os"
 	"time"
 
 	"go.mongodb.org/mongo-driver/mongo"
@@ -12,7 +11,7 @@ import (
 
 var client *mongo.Client
 
-func InitMongo() *mongo.Client {
+func InitMongo(mongoURI string) *mongo.Client {
 	if client != nil {
 		return client
 	}
@@ -20,9 +19,8 @@ func InitMongo() *mongo.Client {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
-	mongoURI := os.Getenv("MONGO_URI")
 	if mongoURI == "" {
-		log.Fatal("MONGO_URI not set")
+		log.Fatal("MONGO_URI is empty")
 	}
 
 	var err error
@@ -31,10 +29,10 @@ func InitMongo() *mongo.Client {
 		log.Fatalf("Failed to connect to MongoDB: %v", err)
 	}
 
-	log.Println("Connected to MongoDB")
+	log.Println("✅ Connected to MongoDB")
 	return client
 }
 
 func GetCollection(database string, collection string) *mongo.Collection {
-	return InitMongo().Database(database).Collection(collection)
+	return client.Database(database).Collection(collection)
 }

@@ -1,0 +1,36 @@
+version: "3.8"
+
+services:
+  comment-fetcher:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ia-go-comment-fetcher
+    ports:
+      - "8080:8080"
+    environment:
+      - MONGO_URI=mongodb://mongo:27018
+      - REDIS_HOST=redis:6379
+    depends_on:
+      - mongo
+      - redis
+
+  mongo:
+    image: mongo:6
+    container_name: ia-mongo-dev
+    ports:
+      - "27018:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  redis:
+    image: redis:7
+    container_name: ia-redis-dev
+    ports:
+      - "6380:6379"
+    volumes:
+      - redis-data:/data
+
+volumes:
+  mongo-data:
+  redis-data:

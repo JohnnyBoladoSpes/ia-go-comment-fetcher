@@ -7,12 +7,18 @@ import (
 	"ia-go-comment-fetcher/models"
 	"ia-go-comment-fetcher/usecases"
 	"ia-go-comment-fetcher/utils"
+
+	"go.mongodb.org/mongo-driver/mongo"
 )
 
-type CommentController struct{}
+type CommentController struct {
+	dbClient *mongo.Client
+}
 
-func NewCommentController() *CommentController {
-	return &CommentController{}
+func NewCommentController(client *mongo.Client) *CommentController {
+	return &CommentController{
+		dbClient: client,
+	}
 }
 
 func (cc *CommentController) FetchComments(w http.ResponseWriter, r *http.Request) {
@@ -22,7 +28,8 @@ func (cc *CommentController) FetchComments(w http.ResponseWriter, r *http.Reques
 		return
 	}
 
-	comments, err := usecases.FetchCommentsUseCase(req.MediaId, req.BusinessId)
+	usecase := usecases.FetchCommentsUseCase(cc.dbClient)
+	comments, err := usecase.Fetch(req.MediaId, req.BusinessId)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return

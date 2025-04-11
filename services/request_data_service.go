@@ -4,7 +4,6 @@ import (
 	"context"
 	"time"
 
-	"ia-go-comment-fetcher/db"
 	"ia-go-comment-fetcher/models"
 
 	"go.mongodb.org/mongo-driver/mongo"
@@ -14,9 +13,9 @@ type RequestDataService struct {
 	mongoClient *mongo.Client
 }
 
-func NewRequestDataService() *RequestDataService {
+func NewRequestDataService(client *mongo.Client) *RequestDataService {
 	return &RequestDataService{
-		mongoClient: db.InitMongo(),
+		mongoClient: client,
 	}
 }
 
@@ -26,8 +25,8 @@ func (service *RequestDataService) StoreRequest(mediaID, businessID string) erro
 	defer cancel()
 
 	request := models.RequestLog{
-		MediaId: mediaID,
-		BusinessId: businessID,
+		MediaId:     mediaID,
+		BusinessId:  businessID,
 		RequestedAt: time.Now(),
 	}
 
