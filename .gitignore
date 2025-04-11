@@ -1,0 +1,24 @@
+# Go
+*.exe
+*.out
+*.tmp
+*.log
+*.bak
+*.test
+
+# Go modules
+go.sum
+
+# Environment variables
+.env
+.env.*
+
+# Editor/IDE
+.vscode/
+
+# Build
+bin/
+build/
+dist/
+coverage/
+cache/
