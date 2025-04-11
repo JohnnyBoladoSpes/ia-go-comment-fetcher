@@ -5,6 +5,7 @@
 *.log
 *.bak
 *.test
+tmp/
 
 # Go modules
 go.sum
