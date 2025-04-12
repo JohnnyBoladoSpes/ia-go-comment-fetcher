@@ -8,6 +8,8 @@ import (
 	"github.com/go-resty/resty/v2"
 )
 
+const SourceInstagram = "Instagram"
+
 type MLClient struct{}
 
 func NewMLClient() *MLClient {
@@ -17,10 +19,22 @@ func NewMLClient() *MLClient {
 func (c *MLClient) PushCommentsForAnalysis(comments []models.Comment) error {
 	client := resty.New()
 
+	var payload []map[string]interface{}
+	for _, comment := range comments {
+		payload = append(payload, map[string]interface{}{
+			"comment_id":   comment.CommentID,
+			"user_id":      comment.UserID,
+			"text":         comment.Text,
+			"media_id":     comment.MediaID,
+			"business_id":  comment.BusinessID,
+			"source":       SourceInstagram,
+		})
+	}
+
 	resp, err := client.R().
 		SetHeader("Content-Type", "application/json").
-		SetBody(comments).
-		Post("http://localhost:8000/analyze-comments")
+		SetBody(payload).
+		Post("http://localhost:9000/api/v1/analysis/analyze")
 
 	if err != nil {
 		return err

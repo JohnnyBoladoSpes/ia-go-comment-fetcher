@@ -1,26 +1,38 @@
 [
     {
-        "id": "cmt1",
+        "comment_id": "cmt1",
+        "user_id": "happy_customer",
         "text": "Amazing product! I loved it 💯",
-        "username": "happy_customer",
-        "timestamp": "2025-04-11T12:30:00Z"
+        "requested_at": "2025-04-11T12:30:00Z",
+        "media_id": "media1",
+        "business_id": "biz001",
+        "source": "instagram"
     },
     {
-        "id": "cmt2",
+        "comment_id": "cmt2",
+        "user_id": "critical_user",
         "text": "It didn’t work as I expected :(",
-        "username": "critical_user",
-        "timestamp": "2025-04-11T13:10:00Z"
+        "requested_at": "2025-04-11T13:10:00Z",
+        "media_id": "media1",
+        "business_id": "biz001",
+        "source": "instagram"
     },
     {
-        "id": "cmt3",
+        "comment_id": "cmt3",
+        "user_id": "ny_buyer",
         "text": "Where can I buy this in New York?",
-        "username": "ny_buyer",
-        "timestamp": "2025-04-11T13:40:00Z"
+        "requested_at": "2025-04-11T13:40:00Z",
+        "media_id": "media1",
+        "business_id": "biz001",
+        "source": "instagram"
     },
     {
-        "id": "cmt4",
+        "comment_id": "cmt4",
+        "user_id": "maria.lopez",
         "text": "Tried it with my family and everyone loved it. Thanks!",
-        "username": "maria.lopez",
-        "timestamp": "2025-04-11T14:15:00Z"
+        "requested_at": "2025-04-11T14:15:00Z",
+        "media_id": "media1",
+        "business_id": "biz001",
+        "source": "instagram"
     }
 ]

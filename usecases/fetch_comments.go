@@ -36,6 +36,10 @@ func (f *CommentFetcher) Fetch(mediaID, businessID string) ([]models.Comment, er
 		return nil, err
 	}
 
+	if err := f.MlClient.PushCommentsForAnalysis(comments); err != nil {
+		return nil, err
+	}
+	
 	if err := f.DataService.StoreRequest(mediaID, businessID); err != nil {
 		return nil, err
 	}
@@ -44,9 +48,6 @@ func (f *CommentFetcher) Fetch(mediaID, businessID string) ([]models.Comment, er
 		return nil, err
 	}
 
-	if err := f.MlClient.PushCommentsForAnalysis(comments); err != nil {
-		return nil, err
-	}
 
 	return comments, nil
 }
